@@ -19,11 +19,12 @@ body {
 	position: absolute;
 	background-color: green;
 	background-image: url('/imgs/buildingssheet7dv.png');
-	background-size: 200%;
 }
 
 .canvas .actor.player {
-	background-color: blue;
+	width: 14px;
+	height: 19px;
+	background-position: -481px -387px;
 }
 
 .canvas .actor.enemy {
@@ -32,6 +33,5 @@ body {
 
 #main {
 	width: 480px; height: 0;
-	padding-bottom: 360px;
 	margin: 2em auto 0;
 }
