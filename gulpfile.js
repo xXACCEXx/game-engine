@@ -17,6 +17,11 @@ gulp.task('clone-imgs', function () {
 		.pipe(gulp.dest('./public/imgs/'));
 })
 
+gulp.task('clone-css', function () {
+	return gulp.src('./src/css/**/*.css')
+		.pipe(gulp.dest('./public/css/'));
+})
+
 gulp.task('watch', function () {
 	gulp.watch('./src/**/*.js', ['browserify']);
 	gulp.watch('./src/imgs/*', ['clone-imgs']);
