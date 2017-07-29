@@ -1,22 +1,11 @@
 var Point = require('./math/point.js');
+var Graphic = require('./graphic.js');
 
-var _actor = {}
+var _actor = Graphic.create()
 
 _actor.update = function () {
 	this.pos = this.pos.add(this.vel);
-	if(this.__element) this.updateElement();
-}
-
-_actor.bindElement = function (el, unit) {
-	this.__element = el;
-
-	if(!unit || (unit != 'px' || unit != '%')) unit = 'px';
-	this.__unit = unit;
-}
-
-_actor.updateElement = function () {
-	this.__element.style.left = this.pos.x + this.__unit;
-	this.__element.style.top = this.pos.y + this.__unit;
+	if (this.__element) this.updateElement();
 }
 
 module.exports = {
