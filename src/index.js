@@ -1,7 +1,8 @@
 var Actor = require('./actor.js');
 var Point = require('./math/point.js');
+var Canvas = require('./canvas.js');
 
-var canvas;
+var canvas, screenSize = Point.create(480, 360);
 var player = Actor.create(null, Point.create(1, 1));
 var enemies = [];
 
@@ -11,13 +12,12 @@ function addEnimy() {
 	var randX = Math.random();
 	var randY = Math.random();
 
-	var rx = randX < 0.333 ? -10 : randX > 0.666 ? 480 : Math.random() * 480;
-	var ry = randY < 0.333 ? -10 : randY > 0.666 ? 360 : Math.random() * 360;
+	var rx = randX < 0.333 ? -10 : randX > 0.666 ? screenSize.x : Math.random() * screenSize.x;
+	var ry = randY < 0.333 ? -10 : randY > 0.666 ? screenSize.y : Math.random() * screenSize.y;
 
 	var pos = Point.create(rx, ry);
-	var vel = Point.create();
 
-	var e = Actor.create(pos, vel);
+	var e = Actor.create(pos);
 	e.bindElement(createElement('enemy'));
 	enemies.push(e);
 }
@@ -31,16 +31,18 @@ function createElement(type) {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-	canvas = document.querySelector('#main');
-	player.bindElement(createElement('player'))
+	canvas = Canvas.create(screenSize);
+	canvas.bindElement(document.querySelector('#main'));
+
+	player.bindElement(createElement('player'));
 	animate();
 })
 
 function step(actor) {
 	if (actor.pos.x < 0) actor.vel.x = 1;
-	if (actor.pos.x > 470) actor.vel.x = -1;
+	if (actor.pos.x > screenSize.x - 10) actor.vel.x = -1;
 	if (actor.pos.y < 0) actor.vel.y = 1;
-	if (actor.pos.y > 350) actor.vel.y = -1;
+	if (actor.pos.y > screenSize.y - 10) actor.vel.y = -1;
 }
 
 function calcLife(life) {
