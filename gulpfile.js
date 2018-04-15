@@ -27,3 +27,5 @@ gulp.task('watch', function () {
 	gulp.watch('./src/imgs/*', ['clone-imgs']);
 	gulp.watch('./src/css/*', ['clone-css']);
 })
+
+gulp.task('default', ['clone-imgs', 'clone-css', 'browserify'])
