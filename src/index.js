@@ -1,10 +1,13 @@
-var Actor = require('./actor.js');
-var Point = require('./math/point.js');
-var Canvas = require('./canvas.js');
+var Actor = require('./actor');
+var Player = require('./player');
+var Point = require('./math/point');
+var Canvas = require('./canvas');
 
-var canvas, screenSize = Point.create(480, 360);
-var player = Actor.create(null, Point.create(1, 1));
+var canvas, screenSize = new Point(480, 360);
+var player = new Player();
 var enemies = [];
+
+window.player = player;
 
 var maxLife = 2000;
 
@@ -15,9 +18,9 @@ function addEnimy() {
 	var rx = randX < 0.333 ? -10 : randX > 0.666 ? screenSize.x : Math.random() * screenSize.x;
 	var ry = randY < 0.333 ? -10 : randY > 0.666 ? screenSize.y : Math.random() * screenSize.y;
 
-	var pos = Point.create(rx, ry);
+	var pos = new Point(rx, ry);
 
-	var e = Actor.create(pos);
+	var e = new Actor(pos);
 	e.bindElement(createElement('enemy'));
 	enemies.push(e);
 }
@@ -31,7 +34,7 @@ function createElement(type) {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-	canvas = Canvas.create(screenSize);
+	canvas = new Canvas(screenSize);
 	canvas.bindElement(document.querySelector('#main'));
 
 	player.bindElement(createElement('player'));
@@ -50,15 +53,30 @@ function calcLife(life) {
 }
 
 function animate() {
-	step(player);
-
-	player.vel = player.vel.div(player.vel.len())
+	player.vel = player.vel.div(player.vel.len)
 	player.update();
 
-	enemies.forEach(step)
+	{	//	init player logic
+		if (!player.dir) player.dir = {};
+		if (!player.dir.x) player.dir.x = 'right';
+		if (!player.dir.y) player.dir.y = 'down';
+
+		//	horizontal movement
+		if (player.pos.x > canvas.width - 10) player.dir.x = 'left';
+		if (player.pos.x < 0) player.dir.x = 'right';
+
+		//	vertical movement
+		if (player.pos.y > canvas.height - 20) player.dir.x = 'up';
+		if (player.pos.y < 0) player.dir.y = 'down';
+
+		//	move the player
+		player._move(player.dir.x, player.dir.y);
+	}
+
+	enemies.forEach(o => o.update)
 	enemies.forEach(function (e) {
 		var dir = player.pos.sub(e.pos);
-		var mag = dir.len();
+		var mag = dir.len;
 
 		e.vel = dir.div(mag);
 	})
@@ -67,7 +85,7 @@ function animate() {
 	enemies.forEach(function (e1, i) {
 		enemies.slice(i + 1).forEach(function (e2) {
 			var dir = e1.pos.sub(e2.pos);
-			var dist = dir.len();
+			var dist = dir.len;
 			if (dist < 15) {
 				var f = dir.div(dist).div(4).mul(3);
 				e1.vel = e1.vel.add(f);
@@ -92,7 +110,7 @@ function animate() {
 		return true;
 	})
 
-	if (Math.random() > 0.99) addEnimy();
+	//if (Math.random() > 0.99) addEnimy();
 
 	requestAnimationFrame(animate);
 }

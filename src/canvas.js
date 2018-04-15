@@ -1,18 +1,16 @@
 var Point = require('./math/point.js');
 var Graphic = require('./graphic.js');
 
-var _canvas = Graphic.create()
+class Canvas extends Graphic {
+	constructor(size = new Point(340, 200)) {
+		super();
 
-_canvas.update = function () {
-	if (this.__element) this.updateElement();
-}
+		this.size = size;
+	}
 
-module.exports = {
-	create: function (size) {
-		var canvas = Object.create(_canvas);
-
-		canvas.size = size || Point.create();
-
-		return canvas;
+	update() {
+		this.updateElement();
 	}
 }
+
+module.exports = Canvas;
