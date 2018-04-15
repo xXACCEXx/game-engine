@@ -17,7 +17,7 @@ body {
 	width: 10px;
 	height: 10px;
 	position: absolute;
-	background-color: green;
+	outline: 0.5px red inset;
 	background-image: url('/imgs/buildingssheet7dv.png');
 }
 
