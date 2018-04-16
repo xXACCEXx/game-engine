@@ -19,25 +19,42 @@ class Graphic {
 		this.updateElement();
 	}
 
-	updateElement() {
-		if (this.size) {
-			this.__element.style.width = this.size.x + this.__unit;
-			this.__element.style.height = this.size.y + this.__unit;
-		}
+	update(frame) {
+		if (!Point.equal(frame.pos, this.lastFrame.pos))
+			this.updateBackground(frame.pos);
 
-		if (this.pos) {
-			this.__element.style.left = this.pos.x + this.__unit;
-			this.__element.style.top = this.pos.y + this.__unit;
+		if (!Point.equal(frame.size, this.lastFrame.size))
+			this.updateBackground(frame.size);
+
+		if (!Point.equal(frame.offset, this.lastFrame.offset))
+			this.updatePosition(this.pos.sub(this.offset));
+
+		else if (!Point.equal(this.pos, this.lastPos))
+			this.updatePosition(this.pos.sub(this.offset));
+
+		this.lastFrame = frame;
+		this.lastPos = this.pos.clone();
+	}
+
+	updatePosition(pos) {
+		if (this.__element) {
+			this.__element.style.left = pos.x + this.__unit;
+			this.__element.style.top = pos.y + this.__unit;
 		}
 	}
 
-	updateBackground(frame) {
-		this.__element.style.backgroundPositionX = -this.currentFrame().x + this.__unit;
-		this.__element.style.backgroundPositionY = -this.currentFrame().y + this.__unit;
+	updateBackground(pos) {
+		if (this.__element) {
+			this.__element.style.backgroundPositionX = -pos.x + this.__unit;
+			this.__element.style.backgroundPositionY = -pos.y + this.__unit;
+		}
 	}
 
-	currentFrame() {
-		return this.frames[this.action][this.direction];
+	updateSize(size) {
+		if (this.__element) {
+			this.__element.style.width = size.x + this.__unit;
+			this.__element.style.height = size.y + this.__unit;
+		}
 	}
 }
 
