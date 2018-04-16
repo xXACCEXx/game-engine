@@ -1,22 +1,14 @@
 var Vector = require('../math/vector');
 var Point = require('../math/point');
 
-class Frame extends Vector {
-	constructor(pos = new Point(), size = new Point()) {
-		super(pos, pos.add(size))
-	}
-}
 
-Frame.fromVector = function () {
-	if (!vector) throw new Error('Must provide a vector');
-	if (!Vector.isPrototypeOf(vector)) vector = Vector.fromObject(vector);
-	// if (!Vector.isPrototypeOf(vector)) throw new TypeError('vector must be of type Vector');
+var Frame = {};
 
-	return new Frame(vector.p0, vector.p1);
-}
-
-Frame.fromPoints = function (p0, p1) {
-	return new Vector(Point.fromObject(p0), Point.fromObject(p1))
+Frame.verifyShape = function (obj) {
+	if (!obj.pos || !Point.verifyShape(obj.pos)) return false;
+	if (!obj.size || !Point.verifyShape(obj.size)) return false;
+	if (!obj.offset || !Point.verifyShape(obj.offset)) return false;
+	return true;
 }
 
 module.exports = Frame;
