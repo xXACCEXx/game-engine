@@ -35,17 +35,19 @@ class Animation extends Graphic {
 	}
 
 	currentFrame() {
-		if (!this.activeSequence) return { x: 0, y: 0 };
+		if (!this.activeSequence) return {
+			pos: { x: 0, y: 0 },
+			size: { x: 0, y: 0 },
+			offset: { x: 0, y: 0 }
+		};
+
 		return this.activeSequence.currentFrame();
 	}
 
-	animate() {
+	update() {
 		if (!this.__element) return;
-
 		this.tickFrame();
-
-		this.updateBackground();
-		this.updateElement();
+		super.update();
 	}
 }
 
