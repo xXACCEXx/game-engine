@@ -1,8 +1,18 @@
 var Point = require('./math/point.js');
 
+const getDefaultFrame = ctx => ({
+	pos: ctx.pos,
+	size: ctx.size,
+	offset: ctx.offset
+});
+
 class Graphic {
 	constructor() {
 		this.__unit = 'px';
+
+		this.size = new Point();
+		this.pos = new Point();
+		this.offset = new Point();
 	}
 
 	appendChild(child) {
@@ -16,16 +26,28 @@ class Graphic {
 		if (!unit || (unit != 'px' || unit != '%')) unit = 'px';
 		this.__unit = unit;
 
-		this.updateElement();
+		this.render();
 	}
 
-	update(frame) {
-		if (this.__element) {
+	render() {
+		var frame = this.currentFrame ? this.currentFrame() : getDefaultFrame(this);
+
+		frame.pos = Point.fromObject(frame.pos)
+		frame.size = Point.fromObject(frame.size)
+		frame.offset = Point.fromObject(frame.offset)
+
+		if (!this.lastFrame) {
+			this.updateBackground(frame.size);
+			this.updateSize(frame.size);
+			this.updatePosition(Point.fromObject(this.pos).sub(frame.offset));
+		}
+
+		else if (this.__element) {
 			if (!Point.equal(frame.pos, this.lastFrame.pos))
 				this.updateBackground(frame.pos);
 
 			if (!Point.equal(frame.size, this.lastFrame.size))
-				this.updateBackground(frame.size);
+				this.updateSize(frame.size);
 
 			if (!Point.equal(frame.offset, this.lastFrame.offset))
 				this.updatePosition(this.pos.sub(frame.offset));
