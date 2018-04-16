@@ -11,14 +11,31 @@ class Player extends Actor {
 	}
 
 	moveLeft() {
-		this.frame = this.frame + 1;
-		if (!this.currentFrame.length) this.frame = 0;
-		else if (this.frame >= this.currentFrame.length) this.frame = 0;
+		this.direction = 'left'
+		this.move()
+	}
+
+	moveDown() {
+		this.direction = 'down'
+		this.move()
+	}
+
+	moveUp() {
+		this.direction = 'up'
+		this.move()
+	}
+
+	moveRight() {
+		this.direction = 'right'
+		this.move()
+	}
+
+	move() {
+		this.action = 'walk';
 	}
 
 	update() {
-		super.update()
-		this.updateBackground();
+		this.animate()
 	}
 }
 
