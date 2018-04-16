@@ -73,12 +73,16 @@ Point.fromObject = function (obj) {
 	return new Point(obj.x, obj.y);
 }
 
-Point.makeProto = function (obj) {
-	var err = 'This object is not the correct shape'
-	if (!obj.x) throw new TypeError(`${err}. missing property 'x'`)
-	if (!obj.y) throw new TypeError(`${err}. missing property 'y'`)
+Point.verifyShape = function (obj) {
+	if (obj.x == undefined || typeof (obj.x) != 'number') return false;
+	if (obj.y == undefined || typeof (obj.y) != 'number') return false;
+	return true;
+}
 
-	Reflect.setPrototypeOf(obj, Point);
+Point.equal = function (p1, p2) {
+	if (p1.x != p2.x) return false;
+	if (p1.y != p2.y) return false;
+	return true;
 }
 
 module.exports = Point;
