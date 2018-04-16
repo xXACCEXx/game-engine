@@ -1,5 +1,5 @@
 var Point = require('./math/point');
-var Animation = require('./animation/animation');
+var Animation = require('./animation');
 
 class Actor extends Animation {
 	constructor(pos = new Point(), vel = new Point()) {

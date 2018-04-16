@@ -1,5 +1,5 @@
-var Frame = require('./frame');
-var Graphic = require('../graphic')
+var Frame = require('./animation/frame');
+var Graphic = require('./graphic')
 
 class Animation extends Graphic {
 	constructor() {
