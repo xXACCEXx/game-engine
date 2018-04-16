@@ -1,18 +1,8 @@
 class Point {
 	constructor(x = 0, y = 0) {
-		// if (typeof (x) == 'number') this.__x = x;
 		if (typeof (x) == 'number') this.x = x;
 		if (typeof (y) == 'number') this.y = y;
 	}
-
-	// get x() {
-	// 	return this.__x;
-	// }
-
-	// set x(v) {
-	// 	if (isNaN(v)) debugger;
-	// 	this.__x = v;
-	// }
 
 	clone() {
 		return new Point(this.x, this.y);
