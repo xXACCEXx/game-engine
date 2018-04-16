@@ -20,17 +20,19 @@ class Graphic {
 	}
 
 	update(frame) {
-		if (!Point.equal(frame.pos, this.lastFrame.pos))
-			this.updateBackground(frame.pos);
+		if (this.__element) {
+			if (!Point.equal(frame.pos, this.lastFrame.pos))
+				this.updateBackground(frame.pos);
 
-		if (!Point.equal(frame.size, this.lastFrame.size))
-			this.updateBackground(frame.size);
+			if (!Point.equal(frame.size, this.lastFrame.size))
+				this.updateBackground(frame.size);
 
-		if (!Point.equal(frame.offset, this.lastFrame.offset))
-			this.updatePosition(this.pos.sub(this.offset));
+			if (!Point.equal(frame.offset, this.lastFrame.offset))
+				this.updatePosition(this.pos.sub(frame.offset));
 
-		else if (!Point.equal(this.pos, this.lastPos))
-			this.updatePosition(this.pos.sub(this.offset));
+			else if (!Point.equal(this.pos, this.lastPos))
+				this.updatePosition(this.pos.sub(frame.offset));
+		}
 
 		this.lastFrame = frame;
 		this.lastPos = this.pos.clone();
