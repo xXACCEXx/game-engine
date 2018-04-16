@@ -8,6 +8,14 @@ class Canvas extends Graphic {
 		this.size = size;
 	}
 
+	appendChild(child) {
+		super.appendChild(child);
+		this.updateBackground({
+			p0: new Point(),
+			p1: this.size
+		});
+	}
+
 	update() {
 		this.updateElement();
 	}
