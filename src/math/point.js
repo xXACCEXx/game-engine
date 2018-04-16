@@ -56,10 +56,7 @@ class Point {
 }
 
 Point.fromObject = function (obj) {
-	var err = 'This object is not the correct shape'
-	if (!obj.x) throw new TypeError(`${err}. missing property 'x'`)
-	if (!obj.y) throw new TypeError(`${err}. missing property 'y'`)
-
+	if (!Point.verifyShape(obj)) throw new TypeError('This object is not the correct shape');
 	return new Point(obj.x, obj.y);
 }
 
