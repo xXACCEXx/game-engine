@@ -1,5 +1,5 @@
 var Point = require('./math/point');
-var Animation = require('./animation');
+var Animation = require('./animation/animation');
 
 class Actor extends Animation {
 	constructor(pos = new Point(), vel = new Point()) {
@@ -18,7 +18,8 @@ class Actor extends Animation {
 	update() {
 		this.vel = this.vel.mul(0.1);
 		this.pos = this.pos.add(this.vel);
-		this.updateElement();	//	needs a check for this.__element
+
+		this.updateBackground({ p0: new Point(), p1: this.size })
 	}
 
 	_moveLeft() {
