@@ -2,12 +2,10 @@ var Point = require('./math/point');
 var Actor = require('./actor');
 var Sequence = require('./animation/sequence');
 
-var frames = require('./anim-lib/player');
-
 class Player extends Actor {
 	constructor(pos, vel) {
 		super(pos, vel);
-		this.frames = frames;
+		this.config(require('./anim-lib/player'))
 	}
 
 	moveLeft() {

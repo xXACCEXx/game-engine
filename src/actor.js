@@ -19,7 +19,7 @@ class Actor extends Animation {
 		this.vel = this.vel.mul(0.1);
 		this.pos = this.pos.add(this.vel);
 
-		this.updateBackground({ p0: new Point(), p1: this.size })
+		super.update()
 	}
 
 	_moveLeft() {

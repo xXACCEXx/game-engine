@@ -1,11 +1,5 @@
 var Point = require('./math/point.js');
 
-const getDefaultFrame = ctx => ({
-	pos: ctx.pos,
-	size: ctx.size,
-	offset: ctx.offset
-});
-
 class Graphic {
 	constructor() {
 		this.__unit = 'px';
@@ -26,18 +20,28 @@ class Graphic {
 		if (!unit || (unit != 'px' || unit != '%')) unit = 'px';
 		this.__unit = unit;
 
-		this.render();
+		this.update();
 	}
 
-	render() {
-		var frame = this.currentFrame ? this.currentFrame() : getDefaultFrame(this);
+	currentFrame() {
+		return {
+			pos: new Point(),
+			size: this.size,
+			offset: this.offset
+		}
+	}
 
+	update() {
+		var frame = this.currentFrame();
+
+		//	this should be moved into the init process, inside the sequence object
 		frame.pos = Point.fromObject(frame.pos)
 		frame.size = Point.fromObject(frame.size)
 		frame.offset = Point.fromObject(frame.offset)
 
+
 		if (!this.lastFrame) {
-			this.updateBackground(frame.size);
+			this.updateBackground(frame.pos);
 			this.updateSize(frame.size);
 			this.updatePosition(Point.fromObject(this.pos).sub(frame.offset));
 		}
@@ -68,6 +72,8 @@ class Graphic {
 	}
 
 	updateBackground(pos) {
+		console.log('BG', pos)
+		debugger;
 		if (this.__element) {
 			this.__element.style.backgroundPositionX = -pos.x + this.__unit;
 			this.__element.style.backgroundPositionY = -pos.y + this.__unit;
