@@ -4,6 +4,7 @@ body {
 	height: 100Vh;
 	margin: 0;
 	background: lightgray;
+	overflow: hidden;
 }
 
 .canvas {
