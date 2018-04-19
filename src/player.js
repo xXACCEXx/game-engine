@@ -33,10 +33,6 @@ class Player extends Actor {
 	move() {
 		this.action = 'walk';
 	}
-
-	update() {
-		this.animate()
-	}
 }
 
 module.exports = Player;
