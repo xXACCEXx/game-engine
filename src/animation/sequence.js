@@ -6,6 +6,8 @@ class Sequence {
 			console.log('list is not a Frame[]', list);
 			throw new TypeError('sequence is not \'Frame[]\'');
 		}
+
+		this.frames = list;
 	}
 
 	reset() {
@@ -18,9 +20,7 @@ class Sequence {
 	}
 
 	currentFrame() {
-		var cFrame = this.frames[this.frame];
-		console.log('current frame', cFrame)
-		return cFrame;
+		return this.frames[this.frame];
 	}
 }
 
