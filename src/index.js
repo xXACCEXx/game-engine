@@ -4,7 +4,7 @@ var Point = require('./math/point');
 var Canvas = require('./canvas');
 
 var canvas, screenSize = new Point(480, 360);
-var player = new Player();
+var player = new Player(new Point(50, 50));
 var enemies = [];
 
 window.player = player;
