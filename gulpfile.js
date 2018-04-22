@@ -7,7 +7,7 @@ function getConfig(name) {
 }
 
 gulp.task('browserify', function () {
-	return gulp.src(['./src/index.js'])
+	return gulp.src(['./src/*.js'])
 		.pipe(browserify())
 		.pipe(gulp.dest('./public/js/'));
 })

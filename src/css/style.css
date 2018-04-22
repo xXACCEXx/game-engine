@@ -7,6 +7,13 @@ body {
 	overflow: hidden;
 }
 
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
 .canvas {
 	background-color: grey;
 	position: relative;
@@ -20,6 +27,7 @@ body {
 	position: absolute;
 	outline: 0.5px red inset;
 	background-image: url('/imgs/buildingssheet7dv.png');
+	image-rendering: pixelated;
 }
 
 .canvas .actor.player {
@@ -33,6 +41,5 @@ body {
 }
 
 #main {
-	width: 480px; height: 0;
-	margin: 2em auto 0;
+	transform: scale(2);
 }

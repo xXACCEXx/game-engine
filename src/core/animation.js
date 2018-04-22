@@ -26,7 +26,7 @@ class Animation extends Graphic {
 	tickFrame() {
 		if (!this.timeOnFrame) this.timeOnFrame = 0;
 
-		if (this.timeOnFrame > Animation.timeOnFrame) {
+		if (this.activeSequence && this.timeOnFrame > Animation.timeOnFrame) {
 			if (this.activeSequence.stepFrame) this.activeSequence.stepFrame();
 			this.timeOnFrame = 0;
 		}

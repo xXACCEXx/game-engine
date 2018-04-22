@@ -13,11 +13,21 @@ class Actor extends Animation {
 
 		this.action = 'idle';
 		this.direction = 'down';
+
+		this.last = {
+			action: 'idle',
+			direction: 'down'
+		}
 	}
 
 	update() {
 		this.vel = this.vel.mul(0.1);
 		this.pos = this.pos.add(this.vel);
+
+		if (
+			this.last.action != this.action ||
+			this.last.direction != this.direction
+		) this.setSequence(`${this.action}.${this.direction}`);
 
 		super.update()
 	}

@@ -1,11 +1,14 @@
-var Actor = require('./actor');
-var Player = require('./player');
-var Point = require('./math/point');
-var Canvas = require('./canvas');
+var Actor = require('./core/actor');
+var Player = require('./core/player');
+var Point = require('./core/math/point');
+var Canvas = require('./core/canvas');
+var keymapper = require('./core/keymapper');
 
 var canvas, screenSize = new Point(480, 360);
 var player = new Player(new Point(50, 50));
 var enemies = [];
+
+var keyboard;
 
 window.player = player;
 
@@ -38,7 +41,12 @@ window.addEventListener('DOMContentLoaded', function () {
 	canvas.bindElement(document.querySelector('#main'));
 
 	player.bindElement(createElement('player'));
-	animate();
+
+	for (var i = 0; i < 10; i++) {
+		addEnimy();
+	}
+
+	gameLoop(setupPlayerControl(player, canvas));
 })
 
 function step(actor) {
@@ -52,26 +60,11 @@ function calcLife(life) {
 	return 1 - (life / maxLife);
 }
 
-function animate() {
+function gameLoop(keyboard) {
+	keyboard.pollKeys();
+
 	player.vel = player.vel.div(player.vel.len)
 	player.update();
-
-	{	//	init player logic
-		if (!player.dir) player.dir = {};
-		if (!player.dir.x) player.dir.x = 'right';
-		if (!player.dir.y) player.dir.y = 'down';
-
-		//	horizontal movement
-		if (player.pos.x > canvas.width - 10) player.dir.x = 'left';
-		if (player.pos.x < 0) player.dir.x = 'right';
-
-		//	vertical movement
-		if (player.pos.y > canvas.height - 20) player.dir.x = 'up';
-		if (player.pos.y < 0) player.dir.y = 'down';
-
-		//	move the player
-		player._move(player.dir.x, player.dir.y);
-	}
 
 	enemies.forEach(o => o.update)
 	enemies.forEach(function (e) {
@@ -110,7 +103,5 @@ function animate() {
 		return true;
 	})
 
-	//if (Math.random() > 0.99) addEnimy();
-
-	requestAnimationFrame(animate);
+	requestAnimationFrame(() => gameLoop(keyboard));
 }

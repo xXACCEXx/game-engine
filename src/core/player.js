@@ -5,7 +5,10 @@ var Sequence = require('./animation/sequence');
 class Player extends Actor {
 	constructor(pos, vel) {
 		super(pos, vel);
-		this.config(require('./anim-lib/player'))
+
+		fetch('/data/player.json')
+			.then(resp => resp.json())
+			.then(data => this.config(data));
 	}
 
 	moveLeft() {
