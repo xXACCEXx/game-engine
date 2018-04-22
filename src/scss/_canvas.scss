@@ -1,0 +1,8 @@
+.canvas {
+	background-color: grey;
+	position: relative;
+	overflow: hidden;
+	transform: translate3d(0,0,0);
+
+	@import 'actor/enemy';
+}

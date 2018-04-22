@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var browserify = require('gulp-browserify');
 
 function getConfig(name) {
@@ -18,14 +19,15 @@ gulp.task('clone-imgs', function () {
 })
 
 gulp.task('clone-css', function () {
-	return gulp.src('./src/css/**/*.css')
+	return gulp.src('./src/scss/*.scss')
+		.pipe(sass())
 		.pipe(gulp.dest('./public/css/'));
 })
 
 gulp.task('watch', function () {
 	gulp.watch('./src/**/*.js', ['browserify']);
 	gulp.watch('./src/imgs/*', ['clone-imgs']);
-	gulp.watch('./src/css/*', ['clone-css']);
+	gulp.watch('./src/scss/**/*', ['clone-css']);
 })
 
 gulp.task('default', ['clone-imgs', 'clone-css', 'browserify'])

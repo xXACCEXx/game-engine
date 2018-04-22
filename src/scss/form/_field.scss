@@ -1,0 +1,23 @@
+.field {
+	padding: 0.25em;
+
+	&:first-child {
+		padding-left: 0;
+	}
+
+	&:last-child {
+		padding-right: 0;
+	}
+
+	&.w50 {
+		width: 50%;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 0.25em;
+		padding-left: .8em;
+	}
+
+	@import './input';
+}

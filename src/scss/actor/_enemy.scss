@@ -1,0 +1,6 @@
+@import "./actor";
+
+.enemy {
+	@include actor;
+	background-color: red;
+}

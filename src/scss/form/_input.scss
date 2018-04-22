@@ -1,0 +1,16 @@
+@mixin inputWidth {
+	width: 100%;
+	border: none;
+}
+
+input {
+	&[type=number] {
+		&, &:focus {
+			outline: solid 1px #000;
+			outline-offset: 0;
+			padding: .5em 1em;
+			
+			@include inputWidth();
+		}
+	}
+}

@@ -1,0 +1,8 @@
+@mixin actor {
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	outline: 0.5px red inset;
+	background-image: url('/imgs/buildingssheet7dv.png');
+	image-rendering: pixelated;
+}
